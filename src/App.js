@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import JsonDataDisplay from "./components/CustomersTable";
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 function App() {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Customers</h1>
+
+      <button onClick={handlePrint} className="print__button">
+        Print
+      </button>
+      <div ref={componentRef} className="card">
+        <div>
+          <h3>
+            <JsonDataDisplay />
+          </h3>
+        </div>
+      </div>
     </div>
   );
 }
